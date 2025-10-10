@@ -5,7 +5,6 @@ import java.util.Locale;
 
 public class Junction
         // TODO extend superclass and/or implement interfaces
-
 {
     private String name;            // unique name of the junction
     private double locationX;       // RD x-coordinate in km
