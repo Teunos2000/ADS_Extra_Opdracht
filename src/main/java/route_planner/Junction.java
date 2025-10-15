@@ -1,35 +1,77 @@
 package route_planner;
 
+import graphs.Identifiable;
+
 import java.io.PrintStream;
 import java.util.Locale;
 
-public class Junction
-        // TODO extend superclass and/or implement interfaces
-{
+public class Junction implements Identifiable {
     private String name;            // unique name of the junction
     private double locationX;       // RD x-coordinate in km
     private double locationY;       // RD y-coordinate in km
     private String province;
     private int population;
 
+    /**
+     * Constructor that accepts a Builder object
+     * This is part of the Builder pattern - creates Junction from builder's values
+     */
     public Junction(Builder builder) {
-        name = builder.name;
-        locationX = builder.locationX;
-        locationY = builder.locationY;
-        province = builder.province;
-        population = builder.population;
+        this.name = builder.name;
+        this.locationX = builder.locationX;
+        this.locationY = builder.locationY;
+        this.province = builder.province;
+        this.population = builder.population;
     }
 
     public Junction(String name) {
         this.name = name;
     }
 
-    // TODO: more implementations as required for use with DirectedGraph, HashSet and/or HashMap
+    /**
+     * Equals method defines when two junctions are considered the same
+     * Two junctions are equal if they have the same name
+     * This is crucial for HashMap operations O(1) lookups depend on proper equals
+     */
+    @Override
+    public boolean equals(Object obj) {
+        // Check if same object reference - O(1)
+        if (this == obj) return true; //"This" refers to the object being called and obj refers to the provided object
 
+        // Check for null or different class - O(1)
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        //Cast the object to junction because in here we are sure its a junction because i checked the class in line above
+        Junction junction = (Junction) obj;
+        return name.equals(junction.name); //If its the same name return true
+    }
+
+    /**
+     * HashCode method - returns a hash value for this junction
+     * MUST be consistent with equals: equal objects must have equal hashcodes
+     * This enables O(1) average time complexity in HashMap operations
+     */
+    @Override
+    public int hashCode() {
+        // Use name's hashcode since name is our equality criteria
+        return name.hashCode();
+    }
 
     // -----------------------------
     // Public getters and setters
     // -----------------------------
+
+    /**
+     * Implementation of Identifiable interface
+     * Returns the unique identifier for this junction
+     * This allows the DirectedGraph to store junctions by their ID
+     * @return the name as the unique identifier
+     */
+    @Override
+    public String getId() {
+        return name;  // Name serves as unique ID (no two cities have same name)
+    }
+
     public String getName() {
         return name;
     }
@@ -107,18 +149,59 @@ public class Junction
     }
 
     /**
-     * Builder class for creating Junction objects in a readable and flexible way.
+     * Builder class - implements the Builder pattern
+     * Allows optional parameters and improves readablity
      */
     public static class Builder {
+        // Builder's own copies of Junction fields
         private String name;
-        private double locationX;
-        private double locationY;
-        private String province;
-        private int population;
+        private double locationX = 0.0;      // Default coordinates
+        private double locationY = 0.0;
+        private String province = null;      // Optional
+        private int population = 0;          // Default population
 
-        // TODO Add & implement builder methods
+        /**
+         * Sets the name and returns Builder for method chaining
+         * Pattern: builder.name("Amsterdam").population(850000).build()
+         */
+        public Builder name(String name) {
+            this.name = name;
+            return this;  // Return 'this' enables method chaining
+        }
 
+        /**
+         * Sets both X and Y coordinates at once
+         * More convenient than setting them separately
+         */
+        public Builder location(double x, double y) {
+            this.locationX = x;
+            this.locationY = y;
+            return this;
+        }
 
+        /**
+         * Sets the province name
+         */
+        public Builder province(String province) {
+            this.province = province;
+            return this;
+        }
+
+        /**
+         * Sets the population
+         */
+        public Builder population(int population) {
+            this.population = population;
+            return this;
+        }
+
+        /**
+         * Creates the actual Junction object with all collected values
+         * This is the final step in the builder chain
+         */
+        public Junction build() {
+            return new Junction(this);  // Pass builder to Junction constructor
+        }
     }
 
     // -----------------------------

@@ -9,7 +9,7 @@ public class Searcher {
      * represents a path of connected vertices and edges in the graph
      */
     public static class DGPath<V extends Identifiable> {
-        private final SinglyLinkedList<V> vertices = new SinglyLinkedList<>();
+        private final SinglyLinkedList<V> vertices = new SinglyLinkedList<>(); //Linked list voor alle vertices die afgelegd zijn
         private final Set<V> visited = new HashSet<>();
         private double totalWeight = 0.0;
 
@@ -74,7 +74,6 @@ public class Searcher {
         DGPath<V> path = new DGPath<>();
 
         // TODO calculate the path from start to target by recursive depth-first-search
-
         return null;
     }
 

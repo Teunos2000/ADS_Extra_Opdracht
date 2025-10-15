@@ -3,10 +3,15 @@ package graphs;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * The full network of roads and junctions
+ * @param <V> Vertex = vertices meaning the junctions/nodes
+ * @param <E> Edges = Roads = The connection between junctions
+ */
 public class DirectedGraph<V extends Identifiable, E> {
 
-    private final Map<String, V> vertices = new HashMap<>();
-    private final Map<V, Map<V, E>> edges = new HashMap<>();
+    private final Map<String, V> vertices = new HashMap<>(); //Hashmap voor alle vertices in de hele kaart
+    private final Map<V, Map<V, E>> edges = new HashMap<>(); //Hashmap that stores all edges and their origin and destination vertice
 
     /**
      * representation invariants:
@@ -46,12 +51,21 @@ public class DirectedGraph<V extends Identifiable, E> {
      * or newVertex itself if it has been added.
      */
     public V addOrGetVertex(V newVertex) {
-        // TODO add and return the newVertex, or return the existing duplicate vertex with the same Id
-        //  pay attention to sustaining representation invariant items 1. and 4.
 
+        //Probably won't be needed but is good practice
+        if (newVertex == null) {
+            return null;
+        }
 
+        V foundVertex = getVertexById(newVertex.getId()); //Checks if given vertex already exists in list
+        if (foundVertex != null) {
+            return foundVertex;
+        } else { //If found Vertex equals null it means there is no existing vertex found
+            vertices.put(newVertex.getId(), newVertex);
+            edges.put(newVertex, new HashMap<>()); //Also provide an empty hashmap to apply with rule 4
+        }
         // a proper vertex shall be returned at all times
-        return null;
+        return newVertex;
     }
 
     /**
@@ -61,15 +75,27 @@ public class DirectedGraph<V extends Identifiable, E> {
      * @param fromVertex
      * @return null if fromVertex cannot be found in the graph
      * an empty collection if fromVertex has no neighbours
+     * Belangrijke code snippet
      */
     public Collection<V> getNeighbours(V fromVertex) {
         if (fromVertex == null) return null;
 
-        // TODO retrieve the collection of neighbour vertices of fromVertex out of the edges data structure
+        V foundVertex = getVertexById(fromVertex.getId()); //Checks if given vertex already exists in list
+        if (foundVertex == null) {
+            return null;
+        } //If there is no vertex found in the vertex list return null
+        Map<V, E> adjacencyMap = edges.get(fromVertex);
 
-        return null;
+        //According to the
+        if (adjacencyMap == null) {
+            return Collections.emptySet();
+        }
+
+        // Return all vertices this vertex connects to - O(1) to return view
+        return adjacencyMap.keySet();
     }
 
+    //Does same thing but by ID
     public Collection<V> getNeighbours(String fromVertexId) {
         return getNeighbours(getVertexById(fromVertexId));
     }
@@ -85,9 +111,28 @@ public class DirectedGraph<V extends Identifiable, E> {
      * @return whether the edge has been added successfully
      */
     public boolean addEdge(V fromVertex, V toVertex, E newEdge) {
-        // TODO add (directed) newEdge to the graph between fromVertex and toVertex
+        // Check for null values first
+        if (fromVertex == null || toVertex == null || newEdge == null) {
+            return false;
+        }
 
-        return false;
+        // Ensure both vertices exist and get the instances. Makes sure the vertex provided has been added to the list
+        fromVertex = addOrGetVertex(fromVertex);
+        toVertex = addOrGetVertex(toVertex);
+
+        // Get the adjacency map for fromVertex
+        Map<V, E> fromAdjacency = edges.get(fromVertex);
+
+        // Check if edge already exists
+        if (fromAdjacency.containsKey(toVertex)) {
+            return false;
+        }
+
+        // Add the new edge to the adjacency map
+        // Since fromAdjacency is a reference to edges.get(fromVertex),
+        // this modifies the edges data structure
+        fromAdjacency.put(toVertex, newEdge);
+        return true;
     }
 
     /**
@@ -101,9 +146,14 @@ public class DirectedGraph<V extends Identifiable, E> {
      * @return whether the edge has been added successfully
      */
     public boolean addEdge(String fromId, String toId, E newEdge) {
-        // TODO add (directed) newEdge to the graph between fromId and toId
+        V fromVertex = getVertexById(fromId);
+        V toVertex = getVertexById(toId);
 
-        return false;
+        if (fromVertex == null || toVertex == null) {
+            return false;
+        }
+
+        return addEdge(fromVertex, toVertex, newEdge);
     }
 
     /**
@@ -118,9 +168,14 @@ public class DirectedGraph<V extends Identifiable, E> {
     public Collection<E> getEdges(V fromVertex) {
         if (fromVertex == null) return null;
 
-        // TODO retrieve the collection of out-going edges which connect fromVertex with a neighbour in the edges data structure
+        Map<V, E> adjacencyMap = edges.get(fromVertex);
 
-        return null;
+        if (adjacencyMap == null) {
+            return null;
+        }
+
+        // Return all edge values - O(1) to return view
+        return adjacencyMap.values();//The values will be empty if there are no edges in fromVertex
     }
 
     public Collection<E> getEdges(String fromId) {
@@ -136,10 +191,13 @@ public class DirectedGraph<V extends Identifiable, E> {
      * returns null if no connection has been set up between these vertices in the specified direction
      */
     public E getEdge(V fromVertex, V toVertex) {
-        if (fromVertex == null || toVertex == null) return null;
-        // TODO retrieve the directed edge between vertices fromVertex and toVertex from the graph
+        if (fromVertex == null || toVertex == null) return null; //First check if both vertexes are not null
+        Map<V, E> adjacencyMap = edges.get(fromVertex); //Create a map of edges from the provided fromVertex. This also checks if the vertex is in the graph because we have rule 4 where we say that both vertices and edges lists always match.
+        if (adjacencyMap == null) {
+            return null;  // fromVertex not in graph
+        }
 
-        return null;
+        return adjacencyMap.get(toVertex);  // Case 3: returns null if no edge. Since we checked both fromVertex and toVertex we are making sure we return null if no connection has been setup between the 2 vertices.
     }
 
     public E getEdge(String fromId, String toId) {
@@ -186,9 +244,20 @@ public class DirectedGraph<V extends Identifiable, E> {
      * @return the total number of edges in the graph
      */
     public int getNumEdges() {
-        // TODO calculate and return the total number of directed edges in the graph
+        int totalEdges = 0;
 
-        return 0;
+        // Iterate through all vertices - O(V)
+        for (Map<V, E> adjacencyMap : edges.values()) {
+            // Add the number of outgoing edges from this vertex - O(1)
+            totalEdges += adjacencyMap.size();
+        }
+
+        return totalEdges;
+
+        // Alternative using streams (same complexity but more functional):
+        // return edges.values().stream()
+        //         .mapToInt(Map::size)
+        //         .sum();
     }
 
     /**

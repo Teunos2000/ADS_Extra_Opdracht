@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
  * A doubly ended singly linked list.
  * Supports adding elements at the front and end,
  * retrieving by index, checking size, and iterating over elements.
- *
+ * This will function in this project to store paths between vertices (junction/nodes) in our directedgraph.
  * @param <E> the type of elements stored in the list
  */
 public class SinglyLinkedList<E> implements Iterable<E> {
