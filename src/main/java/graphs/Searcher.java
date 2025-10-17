@@ -9,9 +9,10 @@ public class Searcher {
      * represents a path of connected vertices and edges in the graph
      */
     public static class DGPath<V extends Identifiable> {
-        private final SinglyLinkedList<V> vertices = new SinglyLinkedList<>(); //Linked list voor alle vertices die afgelegd zijn
-        private final Set<V> visited = new HashSet<>();
-        private double totalWeight = 0.0;
+        private final SinglyLinkedList<V> vertices = new SinglyLinkedList<>(); //Linked list voor alle vertices die afgelegd zijn in de final afgelegde path. "The sequence of vertices that form the final path from start to target."
+        private final Set<V> visited = new HashSet<>();  //Dit is een lijst met alle vertices die bekeken zijn, een HashSet voor snelle lookup O(1) en geen duplicates waardoor je niet vertices revist
+        private double totalWeight = 0.0; //Het totale gewicht van de route dus als je bijv van A -> B gaat met weight 2 en B -> C met weight 3 dan is de total weight 5
+        //Geen lijst met unvisited omdat dat altijd gewoon de totale lijst is minus de visited.
 
         /**
          * representation invariants:
@@ -109,8 +110,7 @@ public class Searcher {
         return null;
     }
 
-    // helper class to build the spanning tree of visited vertices in dijkstra's shortest path algorithm
-    // your may change this class or delete it altogether follow a different approach in your implementation
+    // helper class to represent a node in Dijkstra's shortest path.
     private static class DSPNode<V> implements Comparable<DSPNode<V>> {
         protected V vertex;                // the graph vertex that is concerned with this DSPNode
         protected V fromVertex = null;     // the parent's node vertex that has an edge towards this node's vertex
@@ -139,35 +139,51 @@ public class Searcher {
      * returns null if either start or target cannot be matched with a vertex in the graph
      * or no path can be found from start to target
      */
-    public static <V extends Identifiable, E> DGPath<V> dijkstraShortestPath(
-            DirectedGraph<V, E> graph, String startId, String targetId,
-            Function<E, Double> weightMapper) {
-
-        V start = graph.getVertexById(startId);
+    public static <V extends Identifiable, E> DGPath<V> dijkstraShortestPath(DirectedGraph<V, E> graph, String startId, String targetId, Function<E, Double> weightMapper) { //Function parameter is just so we can have the input of E and output of Double to represent the weight
+        V start = graph.getVertexById(startId); //Dit maakt variabelen van de meegegeven vertices ID's
         V target = graph.getVertexById(targetId);
         if (start == null || target == null) return null;
 
         // initialise the result path of the search
-        DGPath<V> path = new DGPath<>();
-        path.visited.add(start);
+        DGPath<V> path = new DGPath<>(); //Creates a new DGPath object, this is based on the inner class at the top
+        path.visited.add(start); //Adds the start vertice to visited because thats where you start
 
         // easy target
         if (start.equals(target)) {
-            path.vertices.add(start);
+            path.vertices.add(start); //If the destination is the same as the origin just return the path with the one vertice
             return path;
         }
 
         // keep track of the DSP status of all visited nodes
-        // you may choose a different approach of tracking progress of the algorithm, if you wish
-        Map<V, DSPNode<V>> progressData = new HashMap<>();
+        Map<V, DSPNode<V>> dspProgressVisited = new HashMap<>(); //Een Hashmap (box) met als key een Vertice en als value de DSPNode van de helper class. Dit zorgt ervoor dat je alle visited nodes kunt bijhouden in deze functie. Anders dan de visited lijst helemaal bovenin die puur over het resultaat gaat.
 
-        // initialise the progress of the start node
-        DSPNode<V> nextDspNode = new DSPNode<>(start);
-        nextDspNode.weightSumTo = 0.0;
-        progressData.put(start, nextDspNode);
+        // Priority queue for efficient retrieval of minimum weight node - O(log n) operations
+        // Uses a comparator to order nodes by their weightSumTo value
+        PriorityQueue<DSPNode<V>> unvisitedQueue = new PriorityQueue<>(
+                Comparator.comparingDouble(a -> a.weightSumTo)
+        );
 
-        while (nextDspNode != null) {
+        // Initialize the progress of the start node
+        DSPNode<V> startNode = new DSPNode<>(start);
+        startNode.weightSumTo = 0.0;  // Distance to start is 0
+        dspProgressVisited.put(start, startNode); //Start being the key(id) and startnode being the actual value. Dit kan omdat je in het begin zegt V start = blabla.id. Dus het type van start is daardoor V. En op line 158 waar je die map maakt zeg je dat de key van de hashmap V moet zijn. (Doordat het de eerste type is)
+        unvisitedQueue.offer(startNode);  // Add to priority queue
 
+
+        while (!unvisitedQueue.isEmpty()) {
+            DSPNode<V> currentNode = unvisitedQueue.poll(); //Gets the unvisited node with minimum weight which at this point is always the start node
+
+            // Skip if already processed (can happen with duplicate entries)
+            if (currentNode.marked) {
+                continue;
+            }
+
+            currentNode.marked = true;
+            V currentVertex = currentNode.vertex;
+
+            //Path visited vertices [Dit verduidelijken in rapport dat dit dus dubbel kan omdat het om een HashSet gaat
+            path.visited.add(currentVertex); //Dit kan dus nog een keer omdat het een HashSet is waardoor duplicates automatisch voorkomen worden. Kijk naar regel 13, daar zie je dat het om een HashSet gaat
+            //Tot hier begreep ik het en werd het 1 grote teringzooi, laat Claude het nog maar een keer doen en zo goed als opnieuw beginnen aan deze methode of verder gaan vanaf hier
             // TODO continue Dijkstra's algorithm to process nextDspNode
             //  mark nodes as you complete their processing
             //  register all visited vertices while going for statistical purposes
