@@ -135,7 +135,7 @@ public class Searcher {
      * @param startId      id of the start vertex of the search
      * @param targetId     id of the target vertex of the search
      * @param weightMapper provides a function, by which the weight of an edge can be retrieved or calculated
-     * @return the shortest path from start to target
+     * @return the shortest DGPath from start to target
      * returns null if either start or target cannot be matched with a vertex in the graph
      * or no path can be found from start to target
      */
@@ -145,7 +145,7 @@ public class Searcher {
         if (start == null || target == null) return null;
 
         // initialise the result path of the search
-        DGPath<V> path = new DGPath<>(); //Creates a new DGPath object, this is based on the inner class at the top
+        DGPath<V> path = new DGPath<>(); //Creates a new DGPath object, this is based on the inner class at the top and
         path.visited.add(start); //Adds the start vertice to visited because thats where you start
 
         // easy target (origin same as destination)
@@ -173,7 +173,7 @@ public class Searcher {
         while (!unvisitedQueue.isEmpty()) {
             DSPNode<V> currentNode = unvisitedQueue.poll(); //Gets the unvisited node with minimum weight which at this point is always the start node
 
-            // Skip if already processed (can happen with duplicate entries)
+            // Skip if already processed (can happen with duplicate entries) Also not sure if this is needed cause I think the double comparotar does this already
             if (currentNode.marked) {
                 continue; //Goes to the next iteration in the while loop
             }
@@ -201,16 +201,15 @@ public class Searcher {
                     }
                 }
 
-                // Add vertices to path in correct order, ff checken hoezo dit dan niet in reverse komt
+                //Nu voeg je voor alle vertices van reversePath doe aan de vertices singlylinkedlist toe waardoor je dus een mooie lijst krijgt met de snelste route van vertices
                 for (V vertex : reversePath) {
                     path.vertices.add(vertex);
                 }
 
-                return path;
+                return path; //Return the correct DGPath
             }//End of the method that saves the path if the destination is reached
 
-            // Explore all neighbors of current vertex
-            Collection<V> neighbors = graph.getNeighbours(currentVertex);
+            Collection<V> neighbors = graph.getNeighbours(currentVertex); //Maakt collectie van alle neighbours van de huidige vertex
             if (neighbors != null) {
                 for (V neighbor : neighbors) { //V neighbor is now a new variable for each "neighbor" in the neighbors list. So neighbor is an individual neighbor now (vertex) for each neighboor in the collection. This is an foreach loop
                     // Get the edge from current to neighbor
