@@ -65,17 +65,66 @@ public class Searcher {
      * @return the path from start to target
      * returns null if either start or target cannot be matched with a vertex in the graph
      * or no path can be found from start to target
+     * Onthoud hierbij: depth = diep, Hij gaat diep zoeken. Dus hij kijkt naar de neighboor van de node waar hij is. En gaat daar op verder dan kijkt hij naar de nieuwe neighboors van die node en gaat daarop verder. Hij gaat elke tak af tot hij niet verder kan en dan gaat hij terug
      */
     public static <V extends Identifiable, E> DGPath<V> depthFirstSearch(DirectedGraph<V, E> graph, String startId, String targetId) {
-
         V start = graph.getVertexById(startId);
         V target = graph.getVertexById(targetId);
         if (start == null || target == null) return null;
 
-        DGPath<V> path = new DGPath<>();
+        DGPath<V> path = new DGPath<>(); //Create a new path to return later on
+        path.getVisited().add(start); //Voegt start toe aan de lijst met alle nodes die we gevisit hebben"“the places I’ve already explored so I don’t go back.”"
 
-        // TODO calculate the path from start to target by recursive depth-first-search
+        // easy target
+        if (start.equals(target)) {
+            path.getVertices().add(target);
+            return path;
+        }
+
+        path.getVertices().add(start);  //Voegt start toe aan de soort van de “the current route I’m walking.”
+
+        //Recursive helper method
+        if(dfsRecursive(graph, start, target, path)) {
+            return path;
+        }
         return null;
+    }
+
+    /**
+     * Recursive helper method for depth first search
+     * @return true if target is found, false otherwise
+     */
+    private static<V extends Identifiable, E> boolean dfsRecursive(DirectedGraph<V, E> graph, V current, V target, DGPath<V> path) {
+        // Target found
+        if (current.equals(target)) {
+            return true;
+        }
+
+        //Een belangrijk deel waar ik mee struggelde is dat stel je komt op vertice C uit die geen neighbors meer heeft dan is onderstaande collection neighbors niet null maar een empty list
+        Collection<V> neighbors = graph.getNeighbours(current);//Vraag zou kunnen zijn: waarom een collection ipv een set?
+            if(neighbors != null ) { //Als er neighbors zijn. Onthoud het is een directedGraph. Dus als je bijv van B -> C gaat. Betekent niet dat B een neighbor is van C dus stel C is de laatste node op die branch dan
+                for (V neighbor : neighbors) { //Loop over neighbors heen
+                    if(!path.getVisited().contains(neighbor)) { //Als de neighbor nog niet gevisit, is execute code
+                        path.getVisited().add(neighbor); //Voeg neighbor toe aan visited
+                        path.getVertices().add(neighbor); //Voeg neighbor toe aan current route
+
+                        // Recursively search from this neighbor.
+                        if (dfsRecursive(graph, neighbor, target, path)) { //Dit is een belangrijk deel. Hij roept dus nu opnieuw z'n eigen methode aan. Dat maakt het recursivea
+                            return true;  // Target found in this path
+                        }
+
+                            path.getVertices().removeLast(); //BELANGRIJK: Stel we zijn van  B -> C aan het gaan, en C heeft geen nieuwe neighboors dan
+                           // return dat hierboven (if (dfsRecursive etc)) dus false omdat neighbors een lijst returnt met 0 iteraties waardoor de loop niet wordt uitgevoerd en de methode
+                           // HIERBOVEN dus false teruggeeft. Maar onthoud dat we dus op dit punt dus: path.getVertices().removeLast(); nog steeds in het blok code zitten
+                           // van vertice B. Waardoor de vertice van de "current path" lijst wordt weggehaald. Onthoud dat C dus wel wordt toegevoegd aan de lijst
+                           // met visited omdat in de neighbors lijst van B, C zit. En elke neighbor van B weer in de loop wordt toegevoegd aan visited.
+                           // Dit was dus eerst heel verwarrend maar toen ik begreep dat je momenteel in het blok code van B zit en niet C snapte ik het. Onthoud dus
+                           // dat in mijn voorbeeld C wel wordt toegevoegd in visited lijst, maar false returned waardoor if(dfsRecurse) niet wordt uitgevoerd en
+                           // removeLast wel. OMDAT we nog in de iteratie zitten van vertice B.
+                    }
+                }
+            }
+      return false; //If we did not reach the target
     }
 
 
@@ -88,9 +137,9 @@ public class Searcher {
      * @return the path from start to target
      * returns null if either start or target cannot be matched with a vertex in the graph
      * or no path can be found from start to target
+     * Onthoud: Breadth = Breed hij zoekt breed ipv zoals bij depthFirstSearch waarbij hij heel diep gaat op 1 node zoekt breadthFirstSearch echt geleidelijk alle neighbors af en gaat niet door naar een volgende neighbor als de huidige neighbors nog niet explored zijn
      */
     public static <V extends Identifiable, E> DGPath<V> breadthFirstSearch(DirectedGraph<V, E> graph, String startId, String targetId) {
-
         V start = graph.getVertexById(startId);
         V target = graph.getVertexById(targetId);
         if (start == null || target == null) return null;
@@ -105,9 +154,93 @@ public class Searcher {
             return path;
         }
 
-        // TODO calculate the path from start to target by breadth-first-search
+        // Calculate the path from start to target by breadth-first-search
+        // Use a queue for BFS (FIFO - First In First Out)
+        Queue<V> queue = new LinkedList<>(); //Vraag: hoezo hebben we een queue nodig?
+        //We hebben een queue nodig voor FIFO. First in first out. Zie het meer als een REGEL voor de lijst. Het garuantees dat je nooit in het midden opeens iets
+        //kan plaatsen. Het garuentees dat items die eerst worden toegevoegd ALTIJD aan het begin staan. Voor verdere functies kijk hieronder:
 
+        //Queue<String> queue = new LinkedList<>();
+        //queue.add("A");   // queue: [A]
+        //queue.add("B");   // queue: [A, B]
+        //queue.offer("C"); // queue: [A, B, C]
+        //System.out.println(queue.poll()); // removes and prints A -> queue: [B, C]
+        //System.out.println(queue.peek()); // prints B, queue stays [B, C]
+        //queue.remove();                   // removes B -> queue: [C]
+
+        // Track visited vertices to avoid cycles
+        Set<V> visited = new HashSet<>(); //Vraag: Hoezo kunnen ew niet gewoon zoals bij depthFirst path.getVisited.add doen ipv een nieuwe set voor visited
+
+        // Track the parent of each vertex to reconstruct the path
+        Map<V, V> parentMap = new HashMap<>(); //Een hashmap om bij te houden van welke vertice je vandaan komt. Dus het gaat om de prior vertex
+
+        // Initialize: start vertex has no parent and is visited
+        queue.offer(start);  // Add start to the queue, veiliger dan .add want .offer returned false als het niet lukt terwijl .add een exception gooit als het niet lukt.
+        visited.add(start);  // Mark start as visited
+        parentMap.put(start, null);  // Start has no parent
+
+        // BFS main loop: process vertices level by level
+        while (!queue.isEmpty()) {
+            // Get the next vertex from the queue (FIFO order)
+            V current = queue.poll(); //MAAKT CURRENT HET EERST VOLGENDE ITEM IN DE QUEUE (DUS START AAN HET BEGIN) EN REMOVED HEM DAARNA VAN DE QUEUE
+
+            // Add to path.visited for statistics [TOT HIER BEETJE GELEERD]
+            path.getVisited().add(current);
+
+            // Check if we've reached the target
+            if (current.equals(target)) {
+                // Found the target! Reconstruct the path using the parent map
+                reconstructPath(path, parentMap, start, target);
+                return path;
+            }
+
+            // Get all neighbors of the current vertex
+            Collection<V> neighbors = graph.getNeighbours(current);
+
+            // Process all unvisited neighbors
+            if (neighbors != null) {
+                for (V neighbor : neighbors) {
+                    // Only process unvisited neighbors to avoid cycles
+                    if (!visited.contains(neighbor)) {
+                        // Mark neighbor as visited
+                        visited.add(neighbor);
+
+                        // Record parent for path reconstruction
+                        parentMap.put(neighbor, current);
+
+                        // Add neighbor to queue for future processing
+                        queue.offer(neighbor);
+                    }
+                }
+            }
+        }
+
+        // No path found - target is not reachable from start
         return null;
+    }
+
+    /**
+     * Helper method to reconstruct the path from start to target using the parent map
+     * @param path the path object to populate with vertices
+     * @param parentMap map containing parent relationships
+     * @param start the start vertex
+     * @param target the target vertex (where we reconstruct from)
+     */
+    private static <V extends Identifiable> void reconstructPath(DGPath<V> path, Map<V, V> parentMap, V start, V target) {
+        // Build path backwards from target to start using parent references
+        LinkedList<V> reversePath = new LinkedList<>();
+
+        V current = target;
+        // Follow parent references until we reach the start (which has null parent)
+        while (current != null) {
+            reversePath.addFirst(current);  // Add to front to reverse the order
+            current = parentMap.get(current);  // Move to parent
+        }
+
+        // Add all vertices to the path in correct order (from start to target)
+        for (V vertex : reversePath) {
+            path.getVertices().add(vertex);
+        }
     }
 
     // helper class to represent a node in Dijkstra's shortest path.
@@ -158,7 +291,7 @@ public class Searcher {
         Map<V, DSPNode<V>> dspProgress = new HashMap<>(); //Een Hashmap (box) met als key een Vertice en als value de DSPNode van de helper class. Dit zorgt ervoor dat je alle nodes kunt bijhouden in deze functie. Anders dan de visited lijst helemaal bovenin die puur over het resultaat gaat. Het is eigenlijk een soort notitieboekje die je helpt dingen bij te houden.
 
         // Priority queue for efficient retrieval of minimum weight node - O(log n) operations
-        // Uses a comparator to order nodes by their weightSumTo value
+        // Uses a comparator to order nodes by their weightSumTo value. Vraag zou zijn waarom PriorityQueue ipv normale Queue
         PriorityQueue<DSPNode<V>> unvisitedQueue = new PriorityQueue<>(
                 Comparator.comparingDouble(a -> a.weightSumTo)
         );

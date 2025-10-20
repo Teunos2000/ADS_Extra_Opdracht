@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
  */
 public class SinglyLinkedList<E> implements Iterable<E> {
     private Node<E> head;       // first node containing the first item in the linked list
-    private Node tail;       // last node containing the last item in the linked list
+    private Node<E> tail;       // last node containing the last item in the linked list
     private int size;           // current number of items in the linked list
 
 
@@ -72,6 +72,50 @@ public class SinglyLinkedList<E> implements Iterable<E> {
             head = newNode; //Then makes it the first item.
         }
         size++;
+    }
+
+    /**
+     * Removes and returns the last element from the list
+     * This method is needed for backtracking in depth-first search
+     * @return the last element that was removed, or null if list is empty
+     */
+    public E removeLast() {
+        // If the list is empty, return null
+        if (head == null) {
+            return null;
+        }
+
+        // If there's only one element, remove it and update both head and tail
+        if (head.next == null) {
+            E value = head.value;  // Store the value to return
+            head = null;  // Clear the head
+            tail = null;  // Clear the tail
+            size--;  // Decrease the size
+            return value;
+        }
+
+        // For multiple elements, traverse to find the second-to-last node
+        Node<E> current = head;
+
+        // Traverse until current.next is the tail node
+        while (current.next != tail) {
+            current = current.next;  // Move to next node
+        }
+
+        // Store the value of the last node before removing it
+        E value = tail.value;
+
+        // Update tail to be the second-to-last node
+        tail = current;
+
+        // Remove reference to the old last node
+        tail.next = null;
+
+        // Decrease the size
+        size--;
+
+        // Return the removed value
+        return value;
     }
 
     /**
