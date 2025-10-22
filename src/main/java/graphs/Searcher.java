@@ -273,7 +273,7 @@ public class Searcher {
      * or no path can be found from start to target
      */
     public static <V extends Identifiable, E> DGPath<V> dijkstraShortestPath(DirectedGraph<V, E> graph, String startId, String targetId, Function<E, Double> weightMapper) { //Function parameter is just so we can have the input of E and output of Double to represent the weight
-        V start = graph.getVertexById(startId); //Dit maakt variabelen van de meegegeven vertices ID's
+        V start = graph.getVertexById(startId);
         V target = graph.getVertexById(targetId);
         if (start == null || target == null) return null;
 

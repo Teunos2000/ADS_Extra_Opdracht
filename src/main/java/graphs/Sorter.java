@@ -48,13 +48,14 @@ public class Sorter<E> {
      * Sorts all items by quick sort using the provided comparator
      * for deciding relative ordening of two items.
      * Items are sorted 'in place' without use of an auxiliary list or array
-     *
+     * Quicksort is o(n log n)
+     * Je geeft
      * @param items
      * @param comparator
      * @return the items sorted in place
      */
     public List<E> quickSort(List<E> items, Comparator<E> comparator) {
-// Call the recursive helper method with initial bounds
+        // Call the recursive helper method with initial bounds
         // Start with the entire list from index 0 to size-1
         quickSortRecursive(items, 0, items.size() - 1, comparator);
 
@@ -100,7 +101,6 @@ public class Sorter<E> {
     /**
      * Partitions the list around a pivot element
      * All elements smaller than pivot go to the left, larger go to the right
-     *
      * @param items the list to partition
      * @param low the starting index for partitioning
      * @param high the ending index (where pivot is stored)
