@@ -63,7 +63,6 @@ public class SinglyLinkedList<E> implements Iterable<E> {
     public void addFirst(E item) {
         Node<E> newNode = new Node<>(item);
 
-        //If the list is empty make the new node both head and tail. This makes sure adding is O(1) instead of O(n)
         if (head == null) {
             head = newNode;
             tail = newNode;

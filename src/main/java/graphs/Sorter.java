@@ -15,32 +15,19 @@ public class Sorter<E> {
      * @return the items sorted in place
      */
     public List<E> insertionSort(List<E> items, Comparator<E> comparator) {
-        // Implement insertion sort algorithm
-        // Start from index 1 because index 0 is already "sorted" by itself
         for (int i = 1; i < items.size(); i++) {
-            // Store the current element that needs to be inserted into the sorted portion
             E currentElement = items.get(i);
-
-            // Start comparing with elements in the sorted portion (left side)
-            // j represents the position we're checking in the sorted portion
             int j = i - 1;
 
-            // Shift elements to the right while they are greater than currentElement
-            // Keep moving left through the sorted portion until we find the right spot
             while (j >= 0 && comparator.compare(items.get(j), currentElement) > 0) {
-                // Move the larger element one position to the right
                 items.set(j + 1, items.get(j));
 
-                // Move to the previous element in the sorted portion
                 j--;
             }
 
-            // Insert currentElement at its correct position in the sorted portion
-            // j+1 because j was decremented one extra time in the while loop
             items.set(j + 1, currentElement);
         }
 
-        // Return the sorted list (sorted in place)
         return items;
     }
 
@@ -55,11 +42,8 @@ public class Sorter<E> {
      * @return the items sorted in place
      */
     public List<E> quickSort(List<E> items, Comparator<E> comparator) {
-        // Call the recursive helper method with initial bounds
-        // Start with the entire list from index 0 to size-1
         quickSortRecursive(items, 0, items.size() - 1, comparator);
 
-        // Return the sorted list (sorted in place)
         return items;
     }
 
@@ -73,28 +57,17 @@ public class Sorter<E> {
      * @param comparator the comparator to determine element ordering
      */
     private void quickSortRecursive(List<E> items, int low, int high, Comparator<E> comparator) {
-        // Base case: if low >= high, we have 0 or 1 elements, so it's already sorted
         if (low >= high) {
             return;
         }
 
-        // Choose the middle element as pivot (different from typical first/last element)
-        // This helps avoid worst-case O(n²) for already sorted lists
         int pivotIndex = low + (high - low) / 2;
         E pivot = items.get(pivotIndex);
-
-        // Swap pivot with the last element to get it out of the way
         swap(items, pivotIndex, high);
 
-        // Partition the array around the pivot
-        // After partitioning, all elements < pivot will be on the left
-        // and all elements >= pivot will be on the right
         int partitionIndex = partition(items, low, high, pivot, comparator);
 
-        // Recursively sort the left partition (elements less than pivot)
         quickSortRecursive(items, low, partitionIndex - 1, comparator);
-
-        // Recursively sort the right partition (elements greater than or equal to pivot)
         quickSortRecursive(items, partitionIndex + 1, high, comparator);
     }
 
@@ -123,10 +96,8 @@ public class Sorter<E> {
             }
         }
 
-        // Put the pivot (currently at high) in its final sorted position
         swap(items, i, high);
 
-        // Return the final position of the pivot
         return i;
     }
 
@@ -138,7 +109,6 @@ public class Sorter<E> {
      * @param j index of second element
      */
     private void swap(List<E> items, int i, int j) {
-        // Only swap if indices are different to avoid unnecessary operations
         if (i != j) {
             E temp = items.get(i);
             items.set(i, items.get(j));
