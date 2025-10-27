@@ -9,7 +9,6 @@ public class Sorter<E> {
      * Sorts all items by insertion sort using the provided comparator
      * for deciding relative ordening of two items.
      * Items are sorted 'in place' without use of an auxiliary list or array
-     *
      * @param items
      * @param comparator
      * @return the items sorted in place
@@ -79,7 +78,6 @@ public class Sorter<E> {
         }
 
         // Choose the middle element as pivot (different from typical first/last element)
-        // This helps avoid worst-case O(n²) for already sorted lists
         int pivotIndex = low + (high - low) / 2;
         E pivot = items.get(pivotIndex);
 

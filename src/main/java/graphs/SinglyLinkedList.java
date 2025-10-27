@@ -27,7 +27,7 @@ public class SinglyLinkedList<E> implements Iterable<E> {
 
         //Constructor for node
         public Node(E value) {
-            this.value = value; //Assigns the value
+            this.value = value;
             this.next = null;
         }
     }
@@ -80,17 +80,16 @@ public class SinglyLinkedList<E> implements Iterable<E> {
      * @return the last element that was removed, or null if list is empty
      */
     public E removeLast() {
-        // If the list is empty, return null
         if (head == null) {
             return null;
         }
 
         // If there's only one element, remove it and update both head and tail
         if (head.next == null) {
-            E value = head.value;  // Store the value to return
-            head = null;  // Clear the head
-            tail = null;  // Clear the tail
-            size--;  // Decrease the size
+            E value = head.value;
+            head = null;
+            tail = null;
+            size--;
             return value;
         }
 
@@ -102,19 +101,13 @@ public class SinglyLinkedList<E> implements Iterable<E> {
             current = current.next;  // Move to next node
         }
 
-        // Store the value of the last node before removing it
         E value = tail.value;
 
-        // Update tail to be the second-to-last node
         tail = current;
-
-        // Remove reference to the old last node
         tail.next = null;
 
-        // Decrease the size
         size--;
 
-        // Return the removed value
         return value;
     }
 

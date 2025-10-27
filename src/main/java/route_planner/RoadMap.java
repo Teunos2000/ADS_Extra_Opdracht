@@ -66,7 +66,7 @@ public class RoadMap extends DirectedGraph<Junction, Road> {
         // System.out.println(header);
 
         while (scanner.hasNext()) {
-            scanner.nextInt(); // skip code
+            scanner.nextInt();
 
             Junction junction = new Junction.Builder()
                     .name(scanner.next().trim())
@@ -90,7 +90,6 @@ public class RoadMap extends DirectedGraph<Junction, Road> {
      * creates two road segments for each (bi-directional) junction pair
      * (The resource files do not provide specific directional information about the roads.
      * Junction names must be configured into the DirectedGraph before roads can be loaded.
-     *
      * @param resourceName
      * @return
      */

@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
  */
 public class DirectedGraph<V extends Identifiable, E> {
 
-    private final Map<String, V> vertices = new HashMap<>(); //Hashmap voor alle vertices in de hele kaart
-    private final Map<V, Map<V, E>> edges = new HashMap<>(); //Hashmap that stores all edges and their origin and destination vertice
+    private final Map<String, V> vertices = new HashMap<>();
+    private final Map<V, Map<V, E>> edges = new HashMap<>();
 
     /**
      * representation invariants:
@@ -52,7 +52,6 @@ public class DirectedGraph<V extends Identifiable, E> {
      */
     public V addOrGetVertex(V newVertex) {
 
-        //Probably won't be needed but is good practice
         if (newVertex == null) {
             return null;
         }
@@ -86,11 +85,9 @@ public class DirectedGraph<V extends Identifiable, E> {
         } //If there is no vertex found in the vertex list return null
         Map<V, E> adjacencyMap = edges.get(fromVertex);
 
-        //According to the
         if (adjacencyMap == null) {
             return Collections.emptySet();
         }
-
         // Return all vertices this vertex connects to - O(1) to return view
         return adjacencyMap.keySet();
     }
@@ -139,7 +136,6 @@ public class DirectedGraph<V extends Identifiable, E> {
      * Adds a new, directed edge 'newEdge' from vertex with id=fromId to vertex with id=toId
      * No change shall be made if a directed edge already exists between these vertices
      * or if no vertices can be found with id=fromId or id=toId
-     *
      * @param fromId  the id of the start vertex of the outgoing edge
      * @param toId    the id of the target vertex of the directed edge
      * @param newEdge the instance with edge information
@@ -160,7 +156,6 @@ public class DirectedGraph<V extends Identifiable, E> {
      * retrieves the collection of edges
      * which connects the 'fromVertex' with its neighbours
      * (only the out-going edges directed from 'fromVertex' towards a neighbour shall be included
-     *
      * @param fromVertex
      * @return null if fromVertex cannot be found in the graph
      * an empty collection if fromVertex has no out-going edges
@@ -174,7 +169,6 @@ public class DirectedGraph<V extends Identifiable, E> {
             return null;
         }
 
-        // Return all edge values - O(1) to return view
         return adjacencyMap.values();//The values will be empty if there are no edges in fromVertex
     }
 
@@ -248,7 +242,6 @@ public class DirectedGraph<V extends Identifiable, E> {
 
         // Iterate through all vertices - O(V)
         for (Map<V, E> adjacencyMap : edges.values()) {
-            // Add the number of outgoing edges from this vertex - O(1)
             totalEdges += adjacencyMap.size();
         }
 

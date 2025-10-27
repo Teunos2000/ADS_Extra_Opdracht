@@ -151,8 +151,6 @@ public class SorterPerformanceTest {
         System.out.println("1. Insertion Sort: Expected O(n²) - time should quadruple when size doubles");
         System.out.println("2. QuickSort: Expected O(n log n) - time should slightly more than double");
         System.out.println("3. Java Sort: Uses TimSort, O(n log n) - highly optimized");
-        System.out.println("\nExample: If n=100 takes 4ms and n=200 takes 16ms, that suggests O(n²)");
-        System.out.println("         If n=100 takes 4ms and n=200 takes 9ms, that suggests O(n log n)");
     }
 
     // Private helper method

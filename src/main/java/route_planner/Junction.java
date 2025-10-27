@@ -35,10 +35,8 @@ public class Junction implements Identifiable {
      */
     @Override
     public boolean equals(Object obj) {
-        // Check if same object reference - O(1)
         if (this == obj) return true; //"This" refers to the object being called and obj refers to the provided object
 
-        // Check for null or different class - O(1)
         if (obj == null || getClass() != obj.getClass()) return false;
 
         //Cast the object to junction because in here we are sure its a junction because i checked the class in line above
@@ -53,13 +51,8 @@ public class Junction implements Identifiable {
      */
     @Override
     public int hashCode() {
-        // Use name's hashcode since name is our equality criteria
         return name.hashCode();
     }
-
-    // -----------------------------
-    // Public getters and setters
-    // -----------------------------
 
     /**
      * Implementation of Identifiable interface
@@ -91,11 +84,6 @@ public class Junction implements Identifiable {
     public int getPopulation() {
         return population;
     }
-
-
-    // -----------------------------
-    // Utility methods
-    // -----------------------------
 
     /**
      * calculates the carthesion distance between two junctions

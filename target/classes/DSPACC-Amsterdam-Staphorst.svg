@@ -502,11 +502,10 @@
 <line x1='191.890' y1='-497.660' x2='180.744' y2='-484.750' stroke-width='1.250' stroke='lime'/>
 <line x1='206.138' y1='-502.784' x2='191.890' y2='-497.660' stroke-width='1.250' stroke='lime'/>
 <line x1='211.841' y1='-519.229' x2='206.138' y2='-502.784' stroke-width='1.250' stroke='lime'/>
-<line x1='211.638' y1='-523.480' x2='211.841' y2='-519.229' stroke-width='1.250' stroke='lime'/>
 <circle cx='88.716' cy='-393.306' r='1.199' fill='mediumblue'/>
 <text x='88.716' y='-394.606' font-size='3' fill='mediumblue' text-anchor='middle'>Roosendaal</text>
-<circle cx='250.143' cy='-476.104' r='1.214' fill='mediumblue'/>
-<text x='250.143' y='-477.404' font-size='3' fill='mediumblue' text-anchor='middle'>Hengelo</text>
+<circle cx='250.143' cy='-476.104' r='1.214' fill='black'/>
+<text x='250.143' y='-477.404' font-size='3' fill='black' text-anchor='middle'>Hengelo</text>
 <circle cx='84.786' cy='-445.531' r='1.285' fill='mediumblue'/>
 <text x='84.786' y='-446.831' font-size='3' fill='mediumblue' text-anchor='middle'>Delft</text>
 <circle cx='179.271' cy='-538.598' r='1.053' fill='mediumblue'/>
@@ -521,12 +520,12 @@
 <text x='155.306' y='-391.890' font-size='3' fill='mediumblue' text-anchor='middle'>Best</text>
 <circle cx='140.691' cy='-447.640' r='1.066' fill='mediumblue'/>
 <text x='140.691' y='-448.940' font-size='3' fill='mediumblue' text-anchor='middle'>Houten</text>
-<circle cx='76.061' cy='-419.228' r='0.516' fill='mediumblue'/>
-<text x='76.061' y='-420.528' font-size='3' fill='mediumblue' text-anchor='middle'>Middelharnis</text>
+<circle cx='76.061' cy='-419.228' r='0.516' fill='black'/>
+<text x='76.061' y='-420.528' font-size='3' fill='black' text-anchor='middle'>Middelharnis</text>
 <circle cx='247.868' cy='-525.681' r='0.967' fill='black'/>
 <text x='247.868' y='-526.981' font-size='3' fill='black' text-anchor='middle'>Coevorden</text>
-<circle cx='48.775' cy='-409.000' r='0.638' fill='mediumblue'/>
-<text x='48.775' y='-410.300' font-size='3' fill='mediumblue' text-anchor='middle'>Renesse</text>
+<circle cx='48.775' cy='-409.000' r='0.638' fill='black'/>
+<text x='48.775' y='-410.300' font-size='3' fill='black' text-anchor='middle'>Renesse</text>
 <circle cx='138.330' cy='-471.763' r='1.242' fill='mediumblue'/>
 <text x='138.330' y='-473.063' font-size='3' fill='mediumblue' text-anchor='middle'>Hilversum</text>
 <circle cx='186.775' cy='-428.256' r='1.443' fill='mediumblue'/>
@@ -537,8 +536,8 @@
 <text x='114.143' y='-531.121' font-size='3' fill='mediumblue' text-anchor='middle'>Schagen</text>
 <circle cx='203.097' cy='-439.553' r='1.027' fill='mediumblue'/>
 <text x='203.097' y='-440.853' font-size='3' fill='mediumblue' text-anchor='middle'>Zevenaar</text>
-<circle cx='55.904' cy='-390.384' r='0.684' fill='mediumblue'/>
-<text x='55.904' y='-391.684' font-size='3' fill='mediumblue' text-anchor='middle'>Kapelle</text>
+<circle cx='55.904' cy='-390.384' r='0.684' fill='black'/>
+<text x='55.904' y='-391.684' font-size='3' fill='black' text-anchor='middle'>Kapelle</text>
 <circle cx='93.481' cy='-453.196' r='1.343' fill='mediumblue'/>
 <text x='93.481' y='-454.496' font-size='3' fill='mediumblue' text-anchor='middle'>Zoetermeer</text>
 <circle cx='133.757' cy='-518.847' r='1.183' fill='mediumblue'/>
@@ -587,8 +586,8 @@
 <text x='146.741' y='-408.812' font-size='3' fill='mediumblue' text-anchor='middle'>Vught</text>
 <circle cx='191.890' cy='-497.660' r='0.845' fill='mediumblue'/>
 <text x='191.890' y='-498.960' font-size='3' fill='mediumblue' text-anchor='middle'>Oldebroek</text>
-<circle cx='189.813' cy='-556.185' r='0.430' fill='mediumblue'/>
-<text x='189.813' y='-557.485' font-size='3' fill='mediumblue' text-anchor='middle'>Akkrum</text>
+<circle cx='189.813' cy='-556.185' r='0.430' fill='black'/>
+<text x='189.813' y='-557.485' font-size='3' fill='black' text-anchor='middle'>Akkrum</text>
 <circle cx='103.254' cy='-399.206' r='1.027' fill='mediumblue'/>
 <text x='103.254' y='-400.506' font-size='3' fill='mediumblue' text-anchor='middle'>Etten-Leur</text>
 <circle cx='158.625' cy='-564.943' r='1.242' fill='mediumblue'/>
@@ -627,8 +626,8 @@
 <text x='180.480' y='-436.513' font-size='3' fill='mediumblue' text-anchor='middle'>Valburg</text>
 <circle cx='85.783' cy='-453.410' r='0.100' fill='mediumblue'/>
 <text x='85.783' y='-454.710' font-size='3' fill='mediumblue' text-anchor='middle'>Clausplein</text>
-<circle cx='200.124' cy='-392.050' r='1.027' fill='mediumblue'/>
-<text x='200.124' y='-393.350' font-size='3' fill='mediumblue' text-anchor='middle'>Venray</text>
+<circle cx='200.124' cy='-392.050' r='1.027' fill='black'/>
+<text x='200.124' y='-393.350' font-size='3' fill='black' text-anchor='middle'>Venray</text>
 <circle cx='98.812' cy='-437.937' r='1.158' fill='mediumblue'/>
 <text x='98.812' y='-439.237' font-size='3' fill='mediumblue' text-anchor='middle'>Capelle a/d IJssel</text>
 <circle cx='126.908' cy='-428.386' r='0.983' fill='mediumblue'/>
@@ -703,10 +702,10 @@
 <text x='123.445' y='-474.315' font-size='3' fill='mediumblue' text-anchor='middle'>Mijdrecht</text>
 <circle cx='104.334' cy='-494.614' r='1.053' fill='mediumblue'/>
 <text x='104.334' y='-495.914' font-size='3' fill='mediumblue' text-anchor='middle'>Velsen</text>
-<circle cx='177.696' cy='-360.651' r='1.066' fill='mediumblue'/>
-<text x='177.696' y='-361.951' font-size='3' fill='mediumblue' text-anchor='middle'>Weert</text>
-<circle cx='181.983' cy='-379.903' r='0.759' fill='mediumblue'/>
-<text x='181.983' y='-381.203' font-size='3' fill='mediumblue' text-anchor='middle'>Asten</text>
+<circle cx='177.696' cy='-360.651' r='1.066' fill='black'/>
+<text x='177.696' y='-361.951' font-size='3' fill='black' text-anchor='middle'>Weert</text>
+<circle cx='181.983' cy='-379.903' r='0.759' fill='black'/>
+<text x='181.983' y='-381.203' font-size='3' fill='black' text-anchor='middle'>Asten</text>
 <circle cx='180.744' cy='-484.750' r='0.892' fill='mediumblue'/>
 <text x='180.744' y='-486.050' font-size='3' fill='mediumblue' text-anchor='middle'>Nunspeet</text>
 <circle cx='192.283' cy='-435.864' r='1.053' fill='mediumblue'/>
@@ -749,14 +748,14 @@
 <text x='93.473' y='-464.887' font-size='3' fill='mediumblue' text-anchor='middle'>Leiden</text>
 <circle cx='31.567' cy='-387.842' r='1.041' fill='black'/>
 <text x='31.567' y='-389.142' font-size='3' fill='black' text-anchor='middle'>Vlissingen</text>
-<circle cx='200.751' cy='-589.516' r='1.041' fill='mediumblue'/>
-<text x='200.751' y='-590.816' font-size='3' fill='mediumblue' text-anchor='middle'>Dokkum</text>
+<circle cx='200.751' cy='-589.516' r='1.041' fill='black'/>
+<text x='200.751' y='-590.816' font-size='3' fill='black' text-anchor='middle'>Dokkum</text>
 <circle cx='127.667' cy='-482.856' r='0.912' fill='mediumblue'/>
 <text x='127.667' y='-484.156' font-size='3' fill='mediumblue' text-anchor='middle'>Diemen</text>
-<circle cx='211.638' cy='-523.480' r='0.950' fill='mediumblue'/>
-<text x='211.638' y='-524.780' font-size='3' fill='mediumblue' text-anchor='middle'>Meppel</text>
-<circle cx='64.775' cy='-403.000' r='0.638' fill='mediumblue'/>
-<text x='64.775' y='-404.300' font-size='3' fill='mediumblue' text-anchor='middle'>Bruinisse</text>
+<circle cx='211.638' cy='-523.480' r='0.950' fill='black'/>
+<text x='211.638' y='-524.780' font-size='3' fill='black' text-anchor='middle'>Meppel</text>
+<circle cx='64.775' cy='-403.000' r='0.638' fill='black'/>
+<text x='64.775' y='-404.300' font-size='3' fill='black' text-anchor='middle'>Bruinisse</text>
 <circle cx='174.102' cy='-387.541' r='1.249' fill='mediumblue'/>
 <text x='174.102' y='-388.841' font-size='3' fill='mediumblue' text-anchor='middle'>Helmond</text>
 <circle cx='139.424' cy='-422.461' r='0.892' fill='mediumblue'/>
@@ -767,8 +766,8 @@
 <text x='86.437' y='-461.871' font-size='3' fill='mediumblue' text-anchor='middle'>Wassenaar</text>
 <circle cx='106.245' cy='-500.087' r='1.013' fill='mediumblue'/>
 <text x='106.245' y='-501.387' font-size='3' fill='mediumblue' text-anchor='middle'>Beverwijk</text>
-<circle cx='202.966' cy='-562.025' r='1.100' fill='mediumblue'/>
-<text x='202.966' y='-563.325' font-size='3' fill='mediumblue' text-anchor='middle'>Drachten</text>
+<circle cx='202.966' cy='-562.025' r='1.100' fill='black'/>
+<text x='202.966' y='-563.325' font-size='3' fill='black' text-anchor='middle'>Drachten</text>
 <circle cx='86.233' cy='-438.590' r='1.199' fill='mediumblue'/>
 <text x='86.233' y='-439.890' font-size='3' fill='mediumblue' text-anchor='middle'>Schiedam</text>
 <circle cx='149.107' cy='-487.805' r='1.487' fill='mediumblue'/>
@@ -779,8 +778,8 @@
 <text x='135.143' y='-450.640' font-size='3' fill='mediumblue' text-anchor='middle'>Nieuwegein</text>
 <circle cx='65.061' cy='-424.228' r='0.516' fill='mediumblue'/>
 <text x='65.061' y='-425.528' font-size='3' fill='mediumblue' text-anchor='middle'>Stellendam</text>
-<circle cx='226.942' cy='-502.046' r='0.759' fill='mediumblue'/>
-<text x='226.942' y='-503.346' font-size='3' fill='mediumblue' text-anchor='middle'>Ommen</text>
+<circle cx='226.942' cy='-502.046' r='0.759' fill='black'/>
+<text x='226.942' y='-503.346' font-size='3' fill='black' text-anchor='middle'>Ommen</text>
 <circle cx='195.541' cy='-322.309' r='1.235' fill='black'/>
 <text x='195.541' y='-323.609' font-size='3' fill='black' text-anchor='middle'>Heerlen</text>
 <circle cx='47.337' cy='-392.843' r='0.983' fill='black'/>
@@ -795,8 +794,8 @@
 <text x='102.561' y='-410.568' font-size='3' fill='mediumblue' text-anchor='middle'>Moerdijk</text>
 <circle cx='167.578' cy='-462.811' r='1.110' fill='mediumblue'/>
 <text x='167.578' y='-464.111' font-size='3' fill='mediumblue' text-anchor='middle'>Barneveld</text>
-<circle cx='206.775' cy='-377.090' r='1.280' fill='mediumblue'/>
-<text x='206.775' y='-378.390' font-size='3' fill='mediumblue' text-anchor='middle'>Venlo</text>
+<circle cx='206.775' cy='-377.090' r='1.280' fill='black'/>
+<text x='206.775' y='-378.390' font-size='3' fill='black' text-anchor='middle'>Venlo</text>
 <circle cx='121.000' cy='-483.000' r='0.100' fill='mediumblue'/>
 <text x='121.000' y='-484.300' font-size='3' fill='mediumblue' text-anchor='middle'>Amsterdam-Z</text>
 <circle cx='255.602' cy='-567.784' r='0.892' fill='black'/>
@@ -841,8 +840,8 @@
 <text x='129.950' y='-411.908' font-size='3' fill='mediumblue' text-anchor='middle'>Waalwijk</text>
 <circle cx='156.415' cy='-433.495' r='1.013' fill='mediumblue'/>
 <text x='156.415' y='-434.795' font-size='3' fill='mediumblue' text-anchor='middle'>Tiel</text>
-<circle cx='193.697' cy='-404.615' r='0.912' fill='mediumblue'/>
-<text x='193.697' y='-405.915' font-size='3' fill='mediumblue' text-anchor='middle'>Boxmeer</text>
+<circle cx='193.697' cy='-404.615' r='0.912' fill='black'/>
+<text x='193.697' y='-405.915' font-size='3' fill='black' text-anchor='middle'>Boxmeer</text>
 <circle cx='122.594' cy='-540.445' r='1.053' fill='mediumblue'/>
 <text x='122.594' y='-541.745' font-size='3' fill='mediumblue' text-anchor='middle'>Den Oever</text>
 <circle cx='109.699' cy='-423.805' r='1.328' fill='mediumblue'/>

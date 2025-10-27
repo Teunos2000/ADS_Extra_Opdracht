@@ -56,12 +56,12 @@
 <text x='121.000' y='-484.300' font-size='3' fill='mediumblue' text-anchor='middle'>Amsterdam-Z</text>
 <circle cx='120.612' cy='-495.712' r='0.583' fill='mediumblue'/>
 <text x='120.612' y='-497.012' font-size='3' fill='mediumblue' text-anchor='middle'>Oostzaan</text>
-<circle cx='93.473' cy='-463.587' r='1.343' fill='black'/>
-<text x='93.473' y='-464.887' font-size='3' fill='black' text-anchor='middle'>Leiden</text>
-<circle cx='104.334' cy='-494.614' r='1.053' fill='black'/>
-<text x='104.334' y='-495.914' font-size='3' fill='black' text-anchor='middle'>Velsen</text>
-<circle cx='132.783' cy='-480.137' r='0.791' fill='black'/>
-<text x='132.783' y='-481.437' font-size='3' fill='black' text-anchor='middle'>Weesp</text>
+<circle cx='93.473' cy='-463.587' r='1.343' fill='mediumblue'/>
+<text x='93.473' y='-464.887' font-size='3' fill='mediumblue' text-anchor='middle'>Leiden</text>
+<circle cx='104.334' cy='-494.614' r='1.053' fill='mediumblue'/>
+<text x='104.334' y='-495.914' font-size='3' fill='mediumblue' text-anchor='middle'>Velsen</text>
+<circle cx='132.783' cy='-480.137' r='0.791' fill='mediumblue'/>
+<text x='132.783' y='-481.437' font-size='3' fill='mediumblue' text-anchor='middle'>Weesp</text>
 <circle cx='128.100' cy='-494.000' r='0.100' fill='mediumblue'/>
 <text x='128.100' y='-495.300' font-size='3' fill='mediumblue' text-anchor='middle'>Amsterdam-N</text>
 </svg>
